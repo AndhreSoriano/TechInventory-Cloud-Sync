@@ -1,20 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    }
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "rewrites": [
+    { "source": "/api/productos/(.*)", "destination": "/api/productos.js" },
+    { "source": "/api/productos", "destination": "/api/productos.js" },
+    { "source": "/api/health", "destination": "/api/health.js" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
-  "routes": [
-    { "src": "/api/productos/(.*)", "dest": "/api/productos.js" },
-    { "src": "/api/productos", "dest": "/api/productos.js" },
-    { "src": "/api/health", "dest": "/api/health.js" },
-    { "src": "/(.*)", "dest": "/frontend/dist/$1" }
-  ]
+  "functions": {
+    "api/productos.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
 }
