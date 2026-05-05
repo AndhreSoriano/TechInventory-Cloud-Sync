@@ -1,15 +1,18 @@
 import express from 'express'
 import cors from 'cors'
+import dotenv from 'dotenv'
 import productosRoutes from '../backend/routes/productos.js'
+
+dotenv.config()
 
 const app = express()
 
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }))
 app.use(express.json())
 
-app.use('/api/productos', productosRoutes)
+app.use('/productos', productosRoutes)
 
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
 })
 
