@@ -15,8 +15,12 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/productos/(.*)",
+      "dest": "/api/productos/$1"
+    },
+    {
+      "src": "/api/productos",
+      "dest": "/api/productos/index.js"
     },
     {
       "src": "/(.*)",
